@@ -21,17 +21,19 @@ const SidebarComponent = () => {
                         active={true}
                     />
                 </Link>
-                {
-                    models && models.length > 0 && models.map((item, index) => (
-                        <Link to={`/model-profile/${item.inventoryId}`}>
-                            <Menu.Item
-                                key={item.inventoryId}
-                                name={item.name}
-                                active={false}
-                            />
-                        </Link>
-                    ))
-                }
+                <div>
+                    {
+                        models && models.length > 0 && models.map((item, index) => (
+                            <Link to={`/inventory-profile/${item.inventoryId}`}>
+                                <Menu.Item
+                                    key={item.inventoryId}
+                                    name={item.name}
+                                    active={false}
+                                />
+                            </Link>
+                        ))
+                    }
+                </div>
             </Menu>
         </div>
     )

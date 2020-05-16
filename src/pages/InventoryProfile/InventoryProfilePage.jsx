@@ -1,13 +1,14 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Formik, FieldArray } from 'formik';
 import moment from 'moment';
-import { Header, Input, Form, Button, Select, Container, Table, Segment, Icon } from 'semantic-ui-react';
-import { useSelector } from 'react-redux';
+import { Header, Input, Form, Button, Select, Container, Table, Segment, Icon, TableRow } from 'semantic-ui-react';
+import { useSelector, useDispatch } from 'react-redux';
+import InventoryProfileModal from './InventorylProfileModal';
 
-// import ManageModelModal from './ManageModelModal';
 
+const InventoryProfilePage = (props) => {
 
-const ModelProfilePage = (props) => {
+    const dispatch = useDispatch();
 
     const models = useSelector(state => state.models);
     const inventories = useSelector(state => state.inventories);
@@ -22,7 +23,7 @@ const ModelProfilePage = (props) => {
             setData(inventoryData.data);
         }
 
-        if (setCurrentModel) {
+        if (models) {
             const modelData = models.find(item => item.inventoryId == props.match.params.id);
             console.log(modelData);
             setCurrentModel(modelData);
@@ -34,7 +35,7 @@ const ModelProfilePage = (props) => {
         <Header as="h2" attached="top" style={{ display: 'flex', justifyContent: 'space-between' }}>
             {currentModel.name}
             <div floated="right">
-                {/* <ManageModelModal /> */}
+                <InventoryProfileModal inventoryId={props.match.params.id} />
             </div>
         </Header>
 
@@ -49,6 +50,9 @@ const ModelProfilePage = (props) => {
                                 </Fragment>
                             ))
                         }
+                        <Table.HeaderCell>
+                            Actions
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -66,10 +70,11 @@ const ModelProfilePage = (props) => {
                                     ))
                                 }
                                 <Table.Cell>
-                                    <Button>
-                                        <Icon name="eye" />
-                                        View
-                                    </Button>
+                                    <InventoryProfileModal inventoryId={props.match.params.id} inventoryModelIndex={index} inventoryModelData={inventory}/>
+                                    <Button onClick={() => dispatch({ type: "DELETE_INVENTORY_BY_ID_FROM_INDEX", payload: {
+                                        inventoryId: props.match.params.id,
+                                        inventoryModelIndex: index
+                                    }})}>Delete</Button>
                                 </Table.Cell>
                             </Table.Row>
                         ))
@@ -80,4 +85,4 @@ const ModelProfilePage = (props) => {
     </Container>
 }
 
-export default ModelProfilePage;
+export default InventoryProfilePage;
