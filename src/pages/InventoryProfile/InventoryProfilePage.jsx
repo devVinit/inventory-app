@@ -19,13 +19,11 @@ const InventoryProfilePage = (props) => {
     useEffect(() => {
         if (inventories) {
             const inventoryData = inventories.find(item => item.inventoryId == props.match.params.id);
-            console.log(inventoryData);
             setData(inventoryData.data);
         }
 
         if (models) {
             const modelData = models.find(item => item.inventoryId == props.match.params.id);
-            console.log(modelData);
             setCurrentModel(modelData);
         }
 
@@ -61,7 +59,6 @@ const InventoryProfilePage = (props) => {
                     {
                         data && data.length > 0 && data.map((inventory, index) => (
                             <Table.Row key={index}>
-                                {/* {JSON.stringify(inventory)} */}
                                 {
                                     inventory && inventory.length > 0 && inventory.map((field, index) => (
                                         <Fragment key={index}>

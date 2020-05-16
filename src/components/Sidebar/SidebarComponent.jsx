@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { Header, Icon, Image, Menu, } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Sidebar.css';
+
+const Nav = props => (
+	<NavLink
+		exact
+		{...props}
+		activeClassName="active"
+	/>
+);
 
 const SidebarComponent = () => {
     const [visible, setVisible] = useState(true);
@@ -15,22 +23,20 @@ const SidebarComponent = () => {
                     <Icon name="settings" circular />
                     <Header.Content as="h2">Construction Machine Management Inc</Header.Content>
                 </Header>
-                <Link to="/manage-models">
-                    <Menu.Item
-                        name="Manage Models"
-                        active={true}
-                    />
-                </Link>
+                <Menu.Item
+                    to="/manage-models"
+                    as={Nav}
+                    name="Manage Models"
+                />
                 <div>
                     {
                         models && models.length > 0 && models.map((item, index) => (
-                            <Link to={`/inventory-profile/${item.inventoryId}`}>
-                                <Menu.Item
-                                    key={item.inventoryId}
-                                    name={item.name}
-                                    active={false}
-                                />
-                            </Link>
+                            <Menu.Item
+                                as={Nav}
+                                key={item.inventoryId}
+                                name={item.name}
+                                to={`/inventory-profile/${item.inventoryId}`}
+                            />
                         ))
                     }
                 </div>

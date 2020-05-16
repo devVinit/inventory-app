@@ -20,15 +20,15 @@ const initialState = [{
     inventoryId: 1,
     fields: [
         {
-            name: 'Model Number',
-            description: 'To vweify model number',
-            dataType: 'text'
-        },
-        {
-            name: 'Build Number',
-            description: 'To vweify build number',
-            dataType: 'text'
-        }
+            "name": "Orientation",
+            "dataType": "text",
+            "value": "hello"
+          },
+          {
+              "name": "Height",
+              "dataType": "text",
+              "value": "hello2"
+          }
     ]
 }];
 

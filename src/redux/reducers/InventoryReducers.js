@@ -16,7 +16,20 @@ const initialState = [{
     ],
 },{
     inventoryId: 1,
-    data: [],
+    data: [
+        [
+            {
+                "name": "Orientation",
+                "dataType": "text",
+                "value": "hello"
+              },
+              {
+                  "name": "Height",
+                  "dataType": "text",
+                  "value": "hello2"
+              }
+        ]
+    ],
 }];
 
 const inventories = (state = initialState, action) => {
