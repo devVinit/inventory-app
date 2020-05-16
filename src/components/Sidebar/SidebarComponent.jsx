@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Header, Icon, Image, Menu, } from 'semantic-ui-react';
+import { Header, Icon,  Menu, } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import {  NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
 const Nav = props => (
@@ -13,13 +13,12 @@ const Nav = props => (
 );
 
 const SidebarComponent = () => {
-    const [visible, setVisible] = useState(true);
     const models = useSelector(state => state.models);
 
     return (
         <div className="side-bar">
             <Menu fluid vertical tabular>
-                <Header as='h1' icon textAlign="center" style={{ padding: 20 }}>
+                <Header icon textAlign="center" style={{ padding: 20 }}>
                     <Icon name="settings" circular />
                     <p>Construction Machine Management Inc</p>
                 </Header>
