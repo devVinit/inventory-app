@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Formik, FieldArray } from 'formik';
-import { Header, Input, Form, Grid, Message, Button, Select } from 'semantic-ui-react';
+import { Header, Input, Form, Button, Select, Container, Table, Segment } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
 
 
 const ManageModelsPage = () => {
+
+    const models = useSelector(state => state.models);
 
     const [data, setData] = useState();
 
@@ -82,7 +85,49 @@ const ManageModelsPage = () => {
         </>
     }
 
-    return <div>
+    return <Container style={{ margin: 20, paddingRight: 20 }}>
+        {console.log(models)}
+        <Header as="h2" attached="top">
+            Manage Models
+            <div floated="right">
+                <Button>Add</Button>
+            </div>
+        </Header>
+
+        <Segment>
+            <Table singleLine>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell>Creation Date</Table.HeaderCell>
+                        <Table.HeaderCell>Actions</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    <Table.Row>
+                        <Table.Cell>John Lilki</Table.Cell>
+                        <Table.Cell>September 14, 2013</Table.Cell>
+                        <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
+                        <Table.Cell>No</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell>Jamie Harington</Table.Cell>
+                        <Table.Cell>January 11, 2014</Table.Cell>
+                        <Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
+                        <Table.Cell>Yes</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell>Jill Lewis</Table.Cell>
+                        <Table.Cell>May 11, 2014</Table.Cell>
+                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
+                        <Table.Cell>Yes</Table.Cell>
+                    </Table.Row>
+                </Table.Body>
+            </Table>
+        </Segment>
+
+
         {/* <Formik
             initialValues={{
                 title: '',
@@ -160,7 +205,7 @@ const ManageModelsPage = () => {
                 ))
             }
         </div>
-    </div>
+    </Container>
 }
 
 export default ManageModelsPage;
