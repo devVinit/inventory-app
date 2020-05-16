@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
 import { Header, Icon, Image, Menu, } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 const SidebarComponent = () => {
     const [visible, setVisible] = useState(true);
+    const models = useSelector(state => state.models);
 
     return (
         <div className="side-bar">
             <Menu fluid vertical tabular>
                 <Header as='h1' icon textAlign="center" style={{ padding: 20 }}>
                     <Icon name="settings" circular />
-                    {/* <Header.Content as="h2">Construction Machine Management Inc</Header.Content> */}
+                    <Header.Content as="h2">Construction Machine Management Inc</Header.Content>
                 </Header>
-                <Menu.Item
-                    name="Manage Models"
-                    active={true}
-                />
-                
+                <Link to="/manage-models">
+                    <Menu.Item
+                        name="Manage Models"
+                        active={true}
+                    />
+                </Link>
+                {
+                    models && models.length > 0 && models.map((item, index) => (
+                        <Link to={`/model-profile/${item.inventoryId}`}>
+                            <Menu.Item
+                                key={item.inventoryId}
+                                name={item.name}
+                                active={false}
+                            />
+                        </Link>
+                    ))
+                }
             </Menu>
         </div>
     )

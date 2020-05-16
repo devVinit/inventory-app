@@ -6,7 +6,7 @@ import ModelProfilePage from './ModelProfile/ModelProfilePage';
 const IndexRouter = () => (
     <Switch>
         <Route path="/manage-models" component={ManageModelsPage} />
-        <Route path="/model-profile/:name" component={ModelProfilePage} />
+        <Route path="/model-profile/:id" component={ModelProfilePage} />
         <Redirect from='*' to='/manage-models' />
     </Switch>
 );

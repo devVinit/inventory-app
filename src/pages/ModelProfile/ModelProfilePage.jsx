@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Formik, FieldArray } from 'formik';
 import moment from 'moment';
 import { Header, Input, Form, Button, Select, Container, Table, Segment, Icon } from 'semantic-ui-react';
@@ -7,12 +7,32 @@ import { useSelector } from 'react-redux';
 // import ManageModelModal from './ManageModelModal';
 
 
-const ModelProfilePage = () => {
+const ModelProfilePage = (props) => {
+
     const models = useSelector(state => state.models);
+    const inventories = useSelector(state => state.inventories);
+
+    const [data, setData] = useState([]);
+    const [currentModel, setCurrentModel] = useState([]);
+
+    useEffect(() => {
+        if (inventories) {
+            const inventoryData = inventories.find(item => item.inventoryId == props.match.params.id);
+            console.log(inventoryData);
+            setData(inventoryData.data);
+        }
+
+        if (setCurrentModel) {
+            const modelData = models.find(item => item.inventoryId == props.match.params.id);
+            console.log(modelData);
+            setCurrentModel(modelData);
+        }
+
+    }, [props.match.params.id]);
 
     return <Container style={{ margin: 20, paddingRight: 20 }}>
         <Header as="h2" attached="top" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            Inventory 
+            {currentModel.name}
             <div floated="right">
                 {/* <ManageModelModal /> */}
             </div>
@@ -22,18 +42,29 @@ const ModelProfilePage = () => {
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Creation Date</Table.HeaderCell>
-                        <Table.HeaderCell>Actions</Table.HeaderCell>
+                        {
+                            currentModel && currentModel.fields && currentModel.fields.length > 0 && currentModel.fields.map((field, index) => (
+                                <Fragment key={index}>
+                                    <Table.HeaderCell>{field.name}</Table.HeaderCell>
+                                </Fragment>
+                            ))
+                        }
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
+
                     {
-                        models && models.length > 0 && models.map((item, index) => (
+                        data && data.length > 0 && data.map((inventory, index) => (
                             <Table.Row key={index}>
-                                <Table.Cell>{item.name}</Table.Cell>
-                                <Table.Cell>{moment(item.creationDate).format('lll')}</Table.Cell>
+                                {/* {JSON.stringify(inventory)} */}
+                                {
+                                    inventory && inventory.length > 0 && inventory.map((field, index) => (
+                                        <Fragment key={index}>
+                                            <Table.Cell>{field.value}</Table.Cell>
+                                        </Fragment>
+                                    ))
+                                }
                                 <Table.Cell>
                                     <Button>
                                         <Icon name="eye" />

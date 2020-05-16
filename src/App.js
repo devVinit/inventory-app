@@ -8,18 +8,17 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <Router>
+        <Grid>
+          <Grid.Column width={4}>
+            <SidebarComponent />
+          </Grid.Column>
 
-      <Grid>
-        <Grid.Column width={4}>
-          <SidebarComponent />
-        </Grid.Column>
-
-        <Grid.Column stretched width={12}>
-          <Router>
+          <Grid.Column stretched width={12}>
             <IndexRouter />
-          </Router>
-        </Grid.Column>
-      </Grid>
+          </Grid.Column>
+        </Grid>
+      </Router>
     </div>
   );
 }
