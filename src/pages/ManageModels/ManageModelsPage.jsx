@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Formik, FieldArray } from 'formik';
+import React from 'react';
 import moment from 'moment';
-import { Header, Input, Form, Button, Select, Container, Table, Segment, Icon } from 'semantic-ui-react';
+import { Header,  Container, Table, Segment } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import ManageModelModal from './ManageModelModal';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Grid, Menu, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import IndexRouter from './pages/indexRouter';
 import SidebarComponent from './components/Sidebar/SidebarComponent';
 import './App.css';

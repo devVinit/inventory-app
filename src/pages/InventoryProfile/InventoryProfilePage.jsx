@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Formik, FieldArray } from 'formik';
 import moment from 'moment';
-import { Header, Input, Form, Button, Select, Container, Table, Segment, Icon, TableRow } from 'semantic-ui-react';
+import { Header,  Button,  Container, Table, Segment, Icon } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import InventoryProfileModal from './InventorylProfileModal';
 
@@ -18,16 +17,16 @@ const InventoryProfilePage = (props) => {
 
     useEffect(() => {
         if (inventories) {
-            const inventoryData = inventories.find(item => item.inventoryId == props.match.params.id);
+            const inventoryData = inventories.find(item => parseInt(item.inventoryId) === parseInt(props.match.params.id));
             setData(inventoryData.data);
         }
 
         if (models) {
-            const modelData = models.find(item => item.inventoryId == props.match.params.id);
+            const modelData = models.find(item => parseInt(item.inventoryId) === parseInt(props.match.params.id));
             setCurrentModel(modelData);
         }
 
-    }, [props.match.params.id]);
+    }, [props.match.params.id, inventories, models]);
 
     return <Container style={{ margin: 20, paddingRight: 20 }}>
         <Header as="h2" attached="top" style={{ display: 'flex', justifyContent: 'space-between' }}>

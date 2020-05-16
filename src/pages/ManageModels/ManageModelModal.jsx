@@ -1,6 +1,5 @@
-import _ from 'lodash';
 import React from 'react';
-import { Button, Header, Icon, Image, Modal, Input, Form, Select, Segment, Grid } from 'semantic-ui-react';
+import { Button, Icon, Modal, Input, Form, Select, Segment } from 'semantic-ui-react';
 import { Formik, FieldArray } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 

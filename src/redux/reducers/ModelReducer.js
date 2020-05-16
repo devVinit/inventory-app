@@ -43,8 +43,9 @@ const models = (state = initialState, action) => {
                 ...action.payload
             });
             return [...state];
+        default:
+            return state;
     }
-    return state;
 }
 
 export default models;
