@@ -19,7 +19,7 @@ const InventoryProfileModal = (props) => {
         }
     }, []);
 
-    const renderFormArray = ({ values, handleChange, setFieldValue }, fieldArrayRenderProps) => {
+    const renderFormArray = ({ values, handleChange }, fieldArrayRenderProps) => {
         return <>
             {
                 values.fields && values.fields.map((item, index) => (
@@ -28,6 +28,7 @@ const InventoryProfileModal = (props) => {
                             <Form.Field>
                                 <label>{currentModel.fields[index].name}</label>
                                 <Input
+                                    type={values.fields[index].dataType}
                                     name={`fields.${index}.value`}
                                     placeholder='Name'
                                     value={values.fields[index].value}
@@ -42,7 +43,7 @@ const InventoryProfileModal = (props) => {
         </>
     }
 
-    return <Modal trigger={<Button>{!isNaN(props.inventoryModelIndex) ? 'Edit': 'Add'}</Button>}>
+    return <Modal trigger={<Button><Icon name={!isNaN(props.inventoryModelIndex) ? `pencil alternate` : `add`} /> {!isNaN(props.inventoryModelIndex) ? 'Edit': 'Add'}</Button>}>
         <Modal.Header>{!isNaN(props.inventoryModelIndex) ? 'Edit': 'Add'} {currentModel.name}</Modal.Header>
         <Formik
             enableReinitialize

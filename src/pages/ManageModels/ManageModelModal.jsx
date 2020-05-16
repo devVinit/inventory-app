@@ -2,8 +2,12 @@ import _ from 'lodash';
 import React from 'react';
 import { Button, Header, Icon, Image, Modal, Input, Form, Select, Segment, Grid } from 'semantic-ui-react';
 import { Formik, FieldArray } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ManageModelModal = () => {
+const ManageModelModal = (props) => {
+
+    const dispatch = useDispatch();
+    const newInventoryId = useSelector(state => state.models.length);
 
     const renderFormArray = ({ values, handleChange, setFieldValue }, fieldArrayRenderProps) => {
         return <>
@@ -32,8 +36,8 @@ const ManageModelModal = () => {
                                 <label>Name</label>
                                 <Input
                                     name={`fields.${index}.name`}
-                                    placeholder='Name'
-                                    values={values.fields[index].name}
+                                    placeholder="Name"
+                                    value={values.fields[index].name}
                                     onChange={handleChange}
                                 />
                             </Form.Field>
@@ -42,8 +46,8 @@ const ManageModelModal = () => {
                                 <label>Description</label>
                                 <Input
                                     name={`fields.${index}.description`}
-                                    placeholder='Description'
-                                    values={values.fields[index].descripiton}
+                                    placeholder="Description"
+                                    value={values.fields[index].description}
                                     onChange={handleChange}
                                 />
                             </Form.Field>
@@ -54,6 +58,7 @@ const ManageModelModal = () => {
                                     name={`fields.${index}.dataType`}
                                     onChange={(value, event) => setFieldValue(`fields.${index}.dataType`, event.value)}
                                     placeholder='Select DataType'
+                                    value={values.fields[index].dataType}
                                     options={[
                                         {
                                             key: 'text',
@@ -80,16 +85,25 @@ const ManageModelModal = () => {
         </>
     }
 
-    return <Modal trigger={<Button>Add</Button>}>
+    return <Modal trigger={<Button><Icon name={props.data ? `eye` : `add`} />{props.data ? `View` : `Add`}</Button>}>
         <Modal.Header>Model</Modal.Header>
         <Formik
-            initialValues={{
+            enableReinitialize
+            initialValues={props.data || {
                 title: '',
                 description: '',
                 fields: []
             }}
 
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+                dispatch({ type: "ADD_MODEL", payload: values });
+                dispatch({
+                    type: "ADD_INVENTORY", payload: {
+                        inventoryId: newInventoryId,
+                        data: []
+                    }
+                })
+            }}
         >
             {
                 ({
@@ -105,40 +119,42 @@ const ManageModelModal = () => {
                     handleReset
                 }) =>
                     (<>
-                        <Modal.Content image scrolling>
-                            <Modal.Description>
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Field>
-                                        <label>Name</label>
-                                        <Input
-                                            name="name"
-                                            placeholder='Name'
-                                            values={values.name}
-                                            onChange={handleChange}
-                                        />
-                                    </Form.Field>
+                        <Modal.Content>
+                            <Form onSubmit={handleSubmit}>
+                                <fieldset disabled={props.data} style={{ border: 0}}>
+                                    <Modal.Description>
+                                        <Form.Field>
+                                            <label>Name</label>
+                                            <Input
+                                                name="name"
+                                                placeholder="Name"
+                                                value={values.name}
+                                                onChange={handleChange}
+                                            />
+                                        </Form.Field>
 
-                                    <Form.Field>
-                                        <label>Description</label>
-                                        <Input
-                                            name="description"
-                                            placeholder='Description'
-                                            values={values.description}
-                                            onChange={handleChange}
-                                        />
-                                    </Form.Field>
+                                        <Form.Field>
+                                            <label>Description</label>
+                                            <Input
+                                                name="description"
+                                                placeholder="Description"
+                                                value={values.description}
+                                                onChange={handleChange}
+                                            />
+                                        </Form.Field>
 
-                                    <FieldArray name="fields">
-                                        {(fieldArrayRenderProps) => renderFormArray({ values, handleChange, setFieldValue }, fieldArrayRenderProps)}
-                                    </FieldArray>
-                                </Form>
-                            </Modal.Description>
+                                        <FieldArray name="fields">
+                                            {(fieldArrayRenderProps) => renderFormArray({ values, handleChange, setFieldValue }, fieldArrayRenderProps)}
+                                        </FieldArray>
+                                    </Modal.Description>
+                                    <Modal.Actions style={{ marginTop: 10 }}>
+                                        <Form.Button fluid type="submit" disabled={false}>
+                                            Proceed <Icon name="chevron right" />
+                                        </Form.Button>
+                                    </Modal.Actions>
+                                </fieldset>
+                            </Form>
                         </Modal.Content>
-                        <Modal.Actions>
-                            <Form.Button type="submit" disabled={false}>
-                            Proceed <Icon name="chevron right" />
-                            </Form.Button>
-                        </Modal.Actions>
                     </>)
             }
         </Formik>

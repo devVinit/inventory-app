@@ -21,7 +21,7 @@ const SidebarComponent = () => {
             <Menu fluid vertical tabular>
                 <Header as='h1' icon textAlign="center" style={{ padding: 20 }}>
                     <Icon name="settings" circular />
-                    <Header.Content as="h2">Construction Machine Management Inc</Header.Content>
+                    <p>Construction Machine Management Inc</p>
                 </Header>
                 <Menu.Item
                     to="/manage-models"

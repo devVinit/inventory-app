@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import ManageModelsPage from './ManageModels/InventoryProfilePage';
+import ManageModelsPage from './ManageModels/ManageModelsPage';
 import InventoryProfilePage from './InventoryProfile/InventoryProfilePage';
 
 const IndexRouter = () => (

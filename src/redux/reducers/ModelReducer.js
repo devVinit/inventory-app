@@ -1,5 +1,6 @@
 const initialState = [{
     name: 'Chainsaw',
+    description: 'Some description',
     creationDate: new Date(),
     inventoryId: 0,
     fields: [
@@ -16,6 +17,7 @@ const initialState = [{
     ]
 }, {
     name: 'BullDozer',
+    description: 'Some description',
     creationDate: new Date(),
     inventoryId: 1,
     fields: [
@@ -33,11 +35,15 @@ const initialState = [{
 }];
 
 const models = (state = initialState, action) => {
-    // switch (action.type) {
-    //     case TOGGLE_LOADER:
-    //         state = { ...state, isLoaderShow: action.payload };
-    //         break;
-    // }
+    switch (action.type) {
+        case "ADD_MODEL":
+            state.push({
+                inventoryId: state.length,
+                creationDate: new Date(),
+                ...action.payload
+            });
+            return [...state];
+    }
     return state;
 }
 

@@ -3,7 +3,6 @@ import { Formik, FieldArray } from 'formik';
 import moment from 'moment';
 import { Header, Input, Form, Button, Select, Container, Table, Segment, Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-
 import ManageModelModal from './ManageModelModal';
 
 
@@ -36,10 +35,7 @@ const ManageModelsPage = () => {
                                 <Table.Cell>{item.name}</Table.Cell>
                                 <Table.Cell>{moment(item.creationDate).format('lll')}</Table.Cell>
                                 <Table.Cell>
-                                    <Button>
-                                        <Icon name="eye" />
-                                        View
-                                    </Button>
+                                    <ManageModelModal data={item}/>
                                 </Table.Cell>
                             </Table.Row>
                         ))

@@ -62,7 +62,7 @@ const InventoryProfilePage = (props) => {
                                 {
                                     inventory && inventory.length > 0 && inventory.map((field, index) => (
                                         <Fragment key={index}>
-                                            <Table.Cell>{field.value}</Table.Cell>
+                                            <Table.Cell>{typeof field.value === "object" ? moment(field.value).format('lll') : field.value}</Table.Cell>
                                         </Fragment>
                                     ))
                                 }
@@ -71,7 +71,10 @@ const InventoryProfilePage = (props) => {
                                     <Button onClick={() => dispatch({ type: "DELETE_INVENTORY_BY_ID_FROM_INDEX", payload: {
                                         inventoryId: props.match.params.id,
                                         inventoryModelIndex: index
-                                    }})}>Delete</Button>
+                                    }})}>
+                                        <Icon name="delete" />
+                                        Delete
+                                    </Button>
                                 </Table.Cell>
                             </Table.Row>
                         ))

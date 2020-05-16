@@ -34,6 +34,9 @@ const initialState = [{
 
 const inventories = (state = initialState, action) => {
     switch (action.type) {
+        case "ADD_INVENTORY":
+            state.push(action.payload);
+            return [...state];
         case "ADD_INVENTORY_BY_ID":
             console.log(action.payload);
             const currentInventoryAddIndex = state.findIndex(inventory => inventory.inventoryId == action.payload.inventoryId);
