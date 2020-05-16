@@ -3,7 +3,7 @@ import { Header, Icon, Image, Menu, } from 'semantic-ui-react';
 import './Sidebar.css';
 
 const SidebarComponent = () => {
-    const [visible, setVisible] = useState(true)
+    const [visible, setVisible] = useState(true);
 
     return (
         <div className="side-bar">
@@ -16,6 +16,7 @@ const SidebarComponent = () => {
                     name="Manage Models"
                     active={true}
                 />
+                
             </Menu>
         </div>
     )
