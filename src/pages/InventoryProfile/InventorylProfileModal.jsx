@@ -46,7 +46,7 @@ const InventoryProfileModal = (props) => {
     const isModeEdit = !isNaN(props.inventoryModelIndex)
 
     return <Modal 
-                trigger={<Button><Icon name={isModeEdit ? `pencil alternate` : `add`} /> {isModeEdit ? 'Edit': 'Add'}</Button>}
+                trigger={<Button onClick={() => setIsShowModal(true)}><Icon name={isModeEdit ? `pencil alternate` : `add`} /> {isModeEdit ? 'Edit': 'Add'}</Button>}
                 open={isShowModal}
                 onClose={() => setIsShowModal(false)}
                 closeIcon
