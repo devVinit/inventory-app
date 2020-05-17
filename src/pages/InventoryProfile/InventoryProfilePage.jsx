@@ -37,15 +37,13 @@ const InventoryProfilePage = (props) => {
             </div>
         </Header>
 
-        <Segment size="large">
+        <Segment>
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
                         {
                             currentModel && currentModel.fields && currentModel.fields.length > 0 && currentModel.fields.map((field, index) => (
-                                <Fragment key={index}>
-                                    <Table.HeaderCell>{field.name}</Table.HeaderCell>
-                                </Fragment>
+                                    <Table.HeaderCell key={index}>{field.name}</Table.HeaderCell>
                             ))
                         }
                         <Table.HeaderCell>
@@ -55,7 +53,6 @@ const InventoryProfilePage = (props) => {
                 </Table.Header>
 
                 <Table.Body>
-
                     {
                         data && data.length > 0 && data.map((inventory, index) => (
                             <Table.Row key={index}>
@@ -86,14 +83,14 @@ const InventoryProfilePage = (props) => {
             </Table>
         </Segment>
 
-        {
+        {/* {
             data && data.length === 0 &&
             <Segment size="massive">
                 <Grid centered columns="1">
                     <Image size="large" src={EmptySvg} />
                 </Grid>
             </Segment>
-        }
+        } */}
     </Container>
 }
 
