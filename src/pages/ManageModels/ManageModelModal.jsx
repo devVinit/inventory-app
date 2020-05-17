@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Icon, Modal, Input, Form, Select, Segment } from 'semantic-ui-react';
 import { Formik, FieldArray } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ const ManageModelModal = (props) => {
 
     const dispatch = useDispatch();
     const newInventoryId = useSelector(state => state.models.length);
+
+    const [isShowModal, setIsShowModal] = useState();
 
     const renderFormArray = ({ values, handleChange, setFieldValue }, fieldArrayRenderProps) => {
         return <>
@@ -84,7 +86,12 @@ const ManageModelModal = (props) => {
         </>
     }
 
-    return <Modal trigger={<Button><Icon name={props.data ? `eye` : `add`} />{props.data ? `View` : `Add`}</Button>}>
+    return <Modal
+            trigger={<Button onClick={() => setIsShowModal(true)}><Icon name={props.data ? `eye` : `add`} />{props.data ? `View` : `Add`}</Button>}
+            open={isShowModal}
+            closeIcon
+            onClose={() => setIsShowModal(false)}
+        >
         <Modal.Header>Model</Modal.Header>
         <Formik
             enableReinitialize
@@ -101,7 +108,8 @@ const ManageModelModal = (props) => {
                         inventoryId: newInventoryId,
                         data: []
                     }
-                })
+                });
+                setIsShowModal(false);
             }}
         >
             {
@@ -120,7 +128,7 @@ const ManageModelModal = (props) => {
                     (<>
                         <Modal.Content>
                             <Form onSubmit={handleSubmit}>
-                                <fieldset disabled={props.data} style={{ border: 0}}>
+                                <fieldset disabled={props.data} style={{ border: 0 }}>
                                     <Modal.Description>
                                         <Form.Field>
                                             <label>Name</label>

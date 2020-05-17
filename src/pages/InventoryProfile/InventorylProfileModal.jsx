@@ -10,6 +10,7 @@ const InventoryProfileModal = (props) => {
     const models = useSelector(state => state.models);
 
     const [currentModel, setCurrentModel] = useState([]);
+    const [isShowModal, setIsShowModal] = useState();
 
     useEffect(() => {
         if (models) {
@@ -42,21 +43,29 @@ const InventoryProfileModal = (props) => {
         </>
     }
 
-    return <Modal trigger={<Button><Icon name={!isNaN(props.inventoryModelIndex) ? `pencil alternate` : `add`} /> {!isNaN(props.inventoryModelIndex) ? 'Edit': 'Add'}</Button>}>
-        <Modal.Header>{!isNaN(props.inventoryModelIndex) ? 'Edit': 'Add'} {currentModel.name}</Modal.Header>
+    const isModeEdit = !isNaN(props.inventoryModelIndex)
+
+    return <Modal 
+                trigger={<Button><Icon name={isModeEdit ? `pencil alternate` : `add`} /> {isModeEdit ? 'Edit': 'Add'}</Button>}
+                open={isShowModal}
+                onClose={() => setIsShowModal(false)}
+                closeIcon
+            >
+        <Modal.Header>{isModeEdit ? 'Edit': 'Add'} {currentModel.name}</Modal.Header>
         <Formik
             enableReinitialize
             initialValues={{
-                fields: !isNaN(props.inventoryModelIndex) ? props.inventoryModelData  : currentModel.fields
+                fields: isModeEdit ? props.inventoryModelData  : currentModel.fields
             }}
 
             onSubmit={(values) => {
                 const {inventoryId, inventoryModelIndex } = props;
-                if (!isNaN(props.inventoryModelIndex)) {
+                if (isModeEdit) {
                     dispatch({ type: "UPDATE_INVENTORY_BY_ID", payload: { values: values.fields, inventoryId, inventoryModelIndex} });
                 } else {
                     dispatch({ type: "ADD_INVENTORY_BY_ID", payload: { values: values.fields, inventoryId } });
                 }
+                setIsShowModal(false);
             }}
         >
             {
