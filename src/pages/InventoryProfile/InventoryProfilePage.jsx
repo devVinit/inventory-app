@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import moment from 'moment';
-import { Header,  Button,  Container, Table, Segment, Icon } from 'semantic-ui-react';
+import { Header, Button, Container, Table, Segment, Icon, Image, Grid } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import InventoryProfileModal from './InventorylProfileModal';
+import EmptySvg from '../../undraw_empty_xct9.svg';
 
 
 const InventoryProfilePage = (props) => {
@@ -12,7 +13,7 @@ const InventoryProfilePage = (props) => {
     const models = useSelector(state => state.models);
     const inventories = useSelector(state => state.inventories);
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     const [currentModel, setCurrentModel] = useState([]);
 
     useEffect(() => {
@@ -36,7 +37,7 @@ const InventoryProfilePage = (props) => {
             </div>
         </Header>
 
-        <Segment>
+        <Segment size="large">
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
@@ -66,11 +67,13 @@ const InventoryProfilePage = (props) => {
                                     ))
                                 }
                                 <Table.Cell>
-                                    <InventoryProfileModal inventoryId={props.match.params.id} inventoryModelIndex={index} inventoryModelData={inventory}/>
-                                    <Button onClick={() => dispatch({ type: "DELETE_INVENTORY_BY_ID_FROM_INDEX", payload: {
-                                        inventoryId: props.match.params.id,
-                                        inventoryModelIndex: index
-                                    }})}>
+                                    <InventoryProfileModal inventoryId={props.match.params.id} inventoryModelIndex={index} inventoryModelData={inventory} />
+                                    <Button onClick={() => dispatch({
+                                        type: "DELETE_INVENTORY_BY_ID_FROM_INDEX", payload: {
+                                            inventoryId: props.match.params.id,
+                                            inventoryModelIndex: index
+                                        }
+                                    })}>
                                         <Icon name="delete" />
                                         Delete
                                     </Button>
@@ -78,9 +81,19 @@ const InventoryProfilePage = (props) => {
                             </Table.Row>
                         ))
                     }
+
                 </Table.Body>
             </Table>
         </Segment>
+
+        {
+            data && data.length === 0 &&
+            <Segment size="massive">
+                <Grid centered columns="1">
+                    <Image size="large" src={EmptySvg} />
+                </Grid>
+            </Segment>
+        }
     </Container>
 }
 

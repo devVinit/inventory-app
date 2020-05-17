@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Router>
         <Grid>
-          <Grid.Column width={4}>
+          <Grid.Column width={4} style={{ paddingBottom: 0 }}>
             <SidebarComponent />
           </Grid.Column>
 
