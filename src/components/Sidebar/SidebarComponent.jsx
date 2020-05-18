@@ -18,6 +18,12 @@ const SidebarComponent = () => {
 
     const models = useSelector(state => state.models);
 
+    const toggleSideBar = () => {
+        if (window.innerWidth <= 768) {
+            dispatch({ type: 'TOGGLE_SIDEBAR', payload: false })
+        }
+    }
+
     return (
         <div className="side-bar">
             <Menu fluid vertical tabular>
@@ -29,7 +35,7 @@ const SidebarComponent = () => {
                     to="/manage-models"
                     as={Nav}
                     name="Manage Models"
-                    onClick={() => dispatch({ type: 'TOGGLE_SIDEBAR', payload: false })}
+                    onClick={toggleSideBar}
                 />
                 <div>
                     {
@@ -38,7 +44,7 @@ const SidebarComponent = () => {
                                 as={Nav}
                                 key={item.inventoryId}
                                 name={item.name}
-                                onClick={() => dispatch({ type: 'TOGGLE_SIDEBAR', payload: false })}
+                                onClick={toggleSideBar}
                                 to={`/inventory-profile/${item.inventoryId}`}
                             />
                         ))

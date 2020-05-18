@@ -24,12 +24,9 @@ function App() {
 					</Grid>
 				</Responsive>
 				<Responsive maxWidth={768}>
-					{
-						isShowSideBar &&
-						<div style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
-							<SidebarComponent />
-						</div>
-					}
+					<div style={{ position: 'absolute', top: 0, left: 0, zIndex: 1, transition: 'all 0.3s ease-in-out', width: isShowSideBar ? '100%' : 0, overflow: 'hidden', }}>
+						<SidebarComponent />
+					</div>
 					<IndexRouter />
 				</Responsive>
 
