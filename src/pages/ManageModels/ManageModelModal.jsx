@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon, Modal, Input, Form, Select, Segment } from 'semantic-ui-react';
+import { Button, Icon, Modal, Input, Form, Select, Segment, Responsive } from 'semantic-ui-react';
 import { Formik, FieldArray } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -87,7 +87,13 @@ const ManageModelModal = (props) => {
     }
 
     return <Modal
-            trigger={<Button onClick={() => setIsShowModal(true)}><Icon name={props.data ? `eye` : `add`} />{props.data ? `View` : `Add`}</Button>}
+            trigger={<Button 
+                onClick={() => setIsShowModal(true)}>
+                    <Icon name={props.data ? `eye` : `add`} />
+                    <Responsive minWidth={768} style={{ display: 'inline-block' }}>
+                        {props.data ? `View` : `Add`}
+                    </Responsive>
+                </Button>}
             open={isShowModal}
             closeIcon
             onClose={() => setIsShowModal(false)}

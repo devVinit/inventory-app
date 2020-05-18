@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button,  Icon,  Modal, Input, Form,  Segment } from 'semantic-ui-react';
+import { Button,  Icon,  Modal, Input, Form,  Segment, Responsive } from 'semantic-ui-react';
 import { Formik, FieldArray } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -46,7 +46,13 @@ const InventoryProfileModal = (props) => {
     const isModeEdit = !isNaN(props.inventoryModelIndex)
 
     return <Modal 
-                trigger={<Button onClick={() => setIsShowModal(true)}><Icon name={isModeEdit ? `pencil alternate` : `add`} /> {isModeEdit ? 'Edit': 'Add'}</Button>}
+                trigger={<Button 
+                    onClick={() => setIsShowModal(true)}>
+                        <Icon name={isModeEdit ? `pencil alternate` : `add`} />
+                        <Responsive minWidth={768} style={{ display: 'inline-block' }}>
+                            {isModeEdit ? 'Edit': 'Add'}
+                        </Responsive>
+                    </Button>}
                 open={isShowModal}
                 onClose={() => setIsShowModal(false)}
                 closeIcon

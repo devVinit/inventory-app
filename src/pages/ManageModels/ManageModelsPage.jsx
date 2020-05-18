@@ -1,16 +1,23 @@
 import React from 'react';
 import moment from 'moment';
-import { Header,  Container, Table, Segment } from 'semantic-ui-react';
-import { useSelector } from 'react-redux';
+import { Header, Container, Table, Segment, Button, Icon, Responsive } from 'semantic-ui-react';
+import { useSelector, useDispatch } from 'react-redux';
 import ManageModelModal from './ManageModelModal';
 
 
 const ManageModelsPage = () => {
 
+    const dispatch = useDispatch();
+
     const models = useSelector(state => state.models);
 
-    return <Container style={{ margin: 20, paddingRight: 20 }}>
+    return <Container style={{ margin: 20, paddingRight: window.innerWidth > 768 ? 20 : 0 }}>
         <Header as="h2" attached="top" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Responsive maxWidth={768}>
+                <Button size="small" onClick={() => dispatch({ type: 'TOGGLE_SIDEBAR', payload: true })}>
+                    <Icon name="align left" />
+                </Button>
+            </Responsive>
             Manage Models
             <div floated="right">
                 <ManageModelModal />
@@ -34,7 +41,7 @@ const ManageModelsPage = () => {
                                 <Table.Cell>{item.name}</Table.Cell>
                                 <Table.Cell>{moment(item.creationDate).format('lll')}</Table.Cell>
                                 <Table.Cell>
-                                    <ManageModelModal data={item}/>
+                                    <ManageModelModal data={item} />
                                 </Table.Cell>
                             </Table.Row>
                         ))
