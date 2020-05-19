@@ -12,7 +12,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<Router>
+			<Router basename={process.env.PUBLIC_URL}>
 				<Responsive minWidth={768}>
 					<Grid>
 						<Grid.Column width={4} style={{ paddingBottom: 0 }}>
